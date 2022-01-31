@@ -24,7 +24,7 @@ app.get('/test', async (req, res) => {
 		res.send(list.rows)
 	} catch (error) {
 		console.log('ERROR --', error)
-		res.send('error')
+		res.status(500).send({...error})
 	}
 })
 

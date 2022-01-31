@@ -16,10 +16,14 @@ const Routes = (
 	<>
 		<AppBar />
 		<Router history={history}>
-			<div className='pt-5'>
-				<Route path="/login" exact component={Login} />
-				<Route path="/" exact component={Home} />
-				<Route path="about" component={About} />
+			<div id="layout-wrapper">
+				<div className=" main-content">
+					<div className="page-content" style={{ overflow: 'auto', height: '100vh' }}>
+						<Route path="/login" exact component={Login} />
+						<Route path="/" exact component={Home} />
+						<Route path="about" component={About} />
+					</div>
+				</div>
 			</div>
 		</Router>
 	</>
