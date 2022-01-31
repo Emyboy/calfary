@@ -1,0 +1,8 @@
+.app-bar{
+    -webkit-app-region: drag;
+}
+
+.form-control {
+    border-color: #030f16 !important;
+    border-width: 1px;
+}
