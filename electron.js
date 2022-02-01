@@ -18,7 +18,7 @@ function createWindow() {
 		focusable: true,
 		frame: false,
 		center: true,
-		icon: __dirname + '/app/assets/logo.png',
+		icon: __dirname + '/app/assets/logo.ico',
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: true,
