@@ -13,7 +13,7 @@ class Home extends Component {
 
 	componentDidMount() {
 		// Do something when loaded
-		axios(Global.API_URL + `/test`)
+		axios(Global.API_URL + `/db`)
 			.then((res) => {
 				console.log('res', res)
 				this.setState({ db_list: res.data })

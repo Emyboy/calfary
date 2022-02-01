@@ -19,14 +19,14 @@ app.use("/api", rootRoute)
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/test', async (req, res) => {
-	try {
-		const list = await KNEX.raw(`SELECT datname FROM pg_database;`)
-		res.send(list.rows)
-	} catch (error) {
-		console.log('ERROR --', error)
-		res.status(500).send({...error})
-	}
-})
+// app.get('/test', async (req, res) => {
+// 	try {
+// 		const list = await KNEX.raw(`SELECT datname FROM pg_database;`)
+// 		res.send(list.rows)
+// 	} catch (error) {
+// 		console.log('ERROR --', error)
+// 		res.status(500).send({...error})
+// 	}
+// })
 
 app.listen(5000, () => console.log('App running on port 5000 🔥'))

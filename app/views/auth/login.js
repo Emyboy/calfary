@@ -1,15 +1,57 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
+import { RiUser6Fill } from 'react-icons/ri'
+import Global from '../../Global'
+import Button from '../../components/Button/Button'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 export default function Login() {
+	const [name, setName] = useState('_')
+	const [password, setPassword] = useState(null)
+	const [loading, setLoading] = useState(false);
+	const { user } = useSelector(state => state.auth);
+
+	const dispatch = useDispatch()
+
+	function onSubmit(e) {
+		setLoading(true)
+		axios(Global.API_URL + '/auth/app', {
+			method: 'POST',
+			data: {
+				name,
+				password,
+			},
+		})
+			.then((res) => {
+				setLoading(false)
+				console.log('RES --', res.data)
+				dispatch({
+					type: 'SET_AUTH_STATE',
+					payload: {
+						user: res.data
+					}
+				})
+			})
+			.catch((err) => {
+				setLoading(false)
+				console.lot('ERROR --', err)
+			})
+	}
+
+	if(user){
+		return <Redirect to='/home' />
+	}
+
 	return (
 		<div className="authentication-bg min-vh-100">
 			<div className="bg-overlay"></div>
 			<div className="container">
-				<div className="d-flex flex-column min-vh-100 px-3 pt-4">
+				<div className="d-flex flex-column min-vh-100 px-3">
 					<div className="row justify-content-center my-auto">
 						<div className="col-md-8 col-lg-6 col-xl-5">
 							<div className="text-center mb-4">
-								<a href="index.html">
+								<a>
 									<img src="assets/images/logo-sm.svg" alt="" height="22" />{' '}
 									<span className="logo-txt">Calfary</span>
 								</a>
@@ -18,30 +60,38 @@ export default function Login() {
 							<div className="card">
 								<div className="card-body p-4">
 									<div className="text-center mt-2">
-										<h5 className="text-primary">Welcome Back !</h5>
-										<p className="text-muted">Sign in to continue to Calfary.</p>
+										<h5 className="text-primary">New User</h5>
+										<p className="text-muted">
+											Enter name and password for authentication
+										</p>
 									</div>
 									<div className="p-2 mt-4">
-										<form action="https://themesbrand.com/Calfary/layouts/index.html">
+										<div className="user-thumb text-center mb-4">
+											{/* <img
+												src="assets/images/users/avatar-4.jpg"
+												className="rounded-circle img-thumbnail avatar-lg"
+												alt="thumbnail"
+											/> */}
+											<RiUser6Fill size={50} />
+											<h5 className="font-size-15 mt-3">{name}</h5>
+										</div>
+										<div onSubmit={onSubmit}>
 											<div className="mb-3">
-												<label className="form-label" for="email">
-													Email
+												<label className="form-label" htmlFor="userpassword">
+													Name
 												</label>
 												<input
+													autoFocus
 													type="text"
+													maxLength={15}
 													className="form-control"
-													id="email"
-													placeholder="Enter email address"
+													id="userpassword"
+													placeholder="Enter Your Name"
+													onChange={(e) => setName(e.target.value)}
 												/>
 											</div>
-
 											<div className="mb-3">
-												<div className="float-end">
-													<a href="auth-recoverpw.html" className="text-muted">
-														Forgot password?
-													</a>
-												</div>
-												<label className="form-label" for="userpassword">
+												<label className="form-label" htmlFor="userpassword">
 													Password
 												</label>
 												<input
@@ -49,46 +99,19 @@ export default function Login() {
 													className="form-control"
 													id="userpassword"
 													placeholder="Enter password"
+													onChange={(e) => setPassword(e.target.value)}
 												/>
-											</div>
-
-											<div className="form-check">
-												<input
-													type="checkbox"
-													className="form-check-input"
-													id="auth-remember-check"
-												/>
-												<label
-													className="form-check-label"
-													for="auth-remember-check"
-												>
-													Remember me
-												</label>
 											</div>
 
 											<div className="mt-3 text-end">
-												<button
-													className="btn btn-primary w-sm waves-effect waves-light"
-													type="submit"
-												>
-													Log In
-												</button>
+												<Button
+													onClick={() => onSubmit()}
+													text={'Create'}
+													loading={loading}
+													disabled={!name || !password}
+												/>
 											</div>
-
-
-											<div className="mt-4 text-center">
-												<p className="mb-0">
-													Don't have an account ?{' '}
-													<a
-														href="auth-register.html"
-														className="fw-medium text-primary"
-													>
-														{' '}
-														Signup now{' '}
-													</a>{' '}
-												</p>
-											</div>
-										</form>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -99,8 +122,8 @@ export default function Login() {
 						<div className="col-lg-12">
 							<div className="text-center text-muted p-4">
 								<p className="text-white-50">
-									© <span>{new Date().getFullYear()}{' '}</span>
-									 Calfary. Crafted by{' '}
+									© <span>{new Date().getFullYear()} </span>
+									Calfary. Crafted by{' '}
 									<i className="mdi mdi-heart text-danger"></i> by iDegin
 								</p>
 							</div>
