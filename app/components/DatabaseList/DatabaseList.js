@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaRegTrashAlt, FaPen, FaSearch } from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
 import EachDatabase from './EachDatabase'
 
 export default function DatabaseList({ list }) {

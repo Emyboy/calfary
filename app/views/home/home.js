@@ -30,7 +30,7 @@ class Home extends Component {
 	}
 
 	render() {
-		const { db_list, has_error, error_mgs } = this.state
+		const { db_list, has_error, error_mgs } = this.state;
 
 		return (
 			<div className="container-fluid">

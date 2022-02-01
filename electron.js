@@ -10,12 +10,14 @@ let mainWindow
 
 function createWindow() {
 	mainWindow = new BrowserWindow({
-		width: 1600,
+		width: 1400,
 		minWidth: 1200,
-		height: 700,
-		minHeight: 900,
+		height: 800,
+		minHeight: 600,
 		autoHideMenuBar: true,
+		focusable: true,
 		frame: false,
+		center: true,
 		icon: __dirname + '/app/assets/logo.png',
 		webPreferences: {
 			nodeIntegration: true,

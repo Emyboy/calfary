@@ -4,6 +4,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const KNEX = require('./api/database/connection')
 const cors = require('cors')
+const rootRoute = require('./api/routes/root.route')
 
 
 const app = express()
@@ -14,7 +15,7 @@ app.use(
 		origin: '*',
 	})
 )
-
+app.use("/api", rootRoute)
 
 app.use(express.static(path.join(__dirname, 'public')))
 
